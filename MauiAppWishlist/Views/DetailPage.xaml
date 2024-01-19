@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiAppWishlist.Views.DetailPage"
+             xmlns:vm="clr-namespace:MauiAppWishlist.ViewModels"
+             Title="DetailPage">
+    <ContentPage.BindingContext>
+        <vm:DetailPageViewModel/>
+    </ContentPage.BindingContext>
+    <ScrollView>
+        <StackLayout>
+            <Image Source="goback" HorizontalOptions="Start" HeightRequest="25" Margin="10">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GoBackCommand}"/>
+                </Image.GestureRecognizers>
+            </Image>
+            <Label Text="{Binding Product.Name}" HorizontalOptions="Center" Padding="10" FontSize="20" FontAttributes="Bold"/>
+            <Border Margin="10" StrokeShape="RoundRectangle 14">
+                <Image Source="{Binding Product.imagemUrl}"/>
+            </Border>
+            <StackLayout Padding="10" Orientation="Horizontal">
+                <Label Text="R$" FontAttributes="Bold" FontSize="25" />
+                <Label Text="{Binding Product.Price}" FontAttributes="Bold" FontSize="25"/>
+            </StackLayout>
+            <Label Text="Descrição" FontAttributes="Bold" FontSize="23" Padding="10"/>
+            <StackLayout Grid.Row="1" Padding="10">
+                <Label Text="{Binding Product.Description}"/>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

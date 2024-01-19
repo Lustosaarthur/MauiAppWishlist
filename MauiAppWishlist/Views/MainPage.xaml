@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiAppWishlist.Views.MainPage"
+             xmlns:vm="clr-namespace:MauiAppWishlist.ViewModels"
+             Title="MainPage">
+    <ContentPage.BindingContext>
+        <vm:MainPageViewModel x:Name="vm"/>
+    </ContentPage.BindingContext>
+
+    <Grid RowDefinitions="80, *">
+        <Border StrokeShape="RoundRectangle 14" HeightRequest="59" WidthRequest="350">
+            <Entry Placeholder="Pesquisar produtos..." PlaceholderColor="Black" Margin="10"/>
+        </Border>
+
+        <CollectionView ItemsSource="{Binding Products}" Grid.Row="1" Margin="10">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Margin="5">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Source={x:Reference vm}, Path=GoToDetailCommand}" CommandParameter="{Binding .}"/>
+                        </StackLayout.GestureRecognizers>
+                        <Border Padding="10" StrokeShape="RoundRectangle 14" HeightRequest="90">
+                            <Grid  RowDefinitions="*, *">
+                                <Label Text="{Binding Name}" FontAttributes="Bold" MaximumWidthRequest="150" HorizontalOptions="Start"/>
+                                <Label Text="{Binding Price}" Grid.Row="1" Margin="7"/>
+                                <CheckBox  HorizontalOptions="End" IsChecked="{Binding IsCompleted}"/>
+                                <Image Source="trash" HeightRequest="20" HorizontalOptions="End" Grid.Row="1" Margin="10">
+                                    <Image.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={x:Reference vm}, Path=DeleteProductCommand}" CommandParameter="{Binding .}"/>
+                                    </Image.GestureRecognizers>
+                                </Image>
+                            </Grid>
+                        </Border>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <Button Grid.Row="1" VerticalOptions="End" Margin="10" WidthRequest="150" Text="Adicionar produto" Command="{Binding GoToAddPageCommand}" BackgroundColor="White" TextColor="Black">
+            <Button.Shadow>
+                <Shadow
+                    Brush="Black"
+                    Offset="20,20"
+                    Radius="40"
+                    Opacity="1.8"
+                    />
+            </Button.Shadow>
+        </Button>
+        <Label Text="Carregando..." FontSize="50" IsVisible="{Binding IsLoading}"/>
+    </Grid>
+</ContentPage>

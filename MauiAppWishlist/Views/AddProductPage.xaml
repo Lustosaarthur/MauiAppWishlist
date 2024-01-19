@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiAppWishlist.Views.AddProductPage"
+             xmlns:vm="clr-namespace:MauiAppWishlist.ViewModels"
+             Title="AddProductPage">
+    <ContentPage.BindingContext>
+        <vm:AddProductPageViewModel x:Name="vm"/>
+    </ContentPage.BindingContext>
+
+    <Grid RowDefinitions="45, *">
+        <Image Source="arrowleft.png" HorizontalOptions="Start" Margin="10, 10, 10, 10" HeightRequest="40">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding GoBackCommand}"/>
+            </Image.GestureRecognizers>
+        </Image>
+        <Label 
+            Text="Welcome to AddPage"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+
+        <StackLayout Grid.Row="2" Padding="10" Spacing="5">
+            <Border StrokeShape="RoundRectangle 14">
+                <Entry Text="{Binding ProductName}" Placeholder="Adicione o nome do produto"/>
+            </Border>
+            <Label Text="{Binding ProductName}"/>
+            <Border HeightRequest="130" StrokeShape="RoundRectangle 14">
+                <Editor Placeholder="Adicione uma descrição" Text="{Binding ProductDescription}"/>
+            </Border>
+            <Label Text="{Binding ProductDescription}"/>
+            <Border StrokeShape="RoundRectangle 14">
+                <Entry Placeholder="Adicione o preço" Text="{Binding ProductPrice}"/>
+            </Border>
+            <Label Text="{Binding ProductPrice}"/>
+            <Border StrokeShape="RoundRectangle 14">
+                <Entry Placeholder="Adicione o link do produto!" Text="{Binding ProductLink}"/>
+            </Border>
+        </StackLayout>
+        <Button Grid.Row="1" VerticalOptions="End" Margin="10" Text="Adicionar produto" BackgroundColor="White" TextColor="Black" Command="{Binding AddInDataBaseCommand}">
+            <Button.Shadow>
+                <Shadow
+                    Brush="Black"
+                Offset="20,20"
+                Radius="40"
+                Opacity="1.8"
+                    />
+            </Button.Shadow>
+        </Button>
+    </Grid>
+</ContentPage>
